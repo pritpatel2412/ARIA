@@ -1,0 +1,98 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: ARIA — Autonomous Real-time Intelligence Agent API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: aria
+    description: ARIA agent operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /orchestrate:
+    post:
+      operationId: orchestrate
+      tags: [aria]
+      summary: Run ARIA orchestration (SSE stream)
+      description: Accepts a user goal and streams real-time agent events via SSE. Session history is managed client-side in localStorage.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrchestrateRequest"
+      responses:
+        "200":
+          description: SSE stream of agent events
+          content:
+            text/event-stream:
+              schema:
+                type: string
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /tts:
+    post:
+      operationId: tts
+      tags: [aria]
+      summary: Server-side TTS (not implemented)
+      description: Placeholder — TTS is handled by the browser Web Speech API on the client.
+      responses:
+        "501":
+          description: Not implemented
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    OrchestrateRequest:
+      type: object
+      properties:
+        goal:
+          type: string
+          description: The user's voice/text goal for ARIA to execute
+      required:
+        - goal
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+        - error

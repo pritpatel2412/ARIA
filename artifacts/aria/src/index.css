@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-aria-green: #00FF88;
+  --color-aria-amber: #F59E0B;
+  --color-aria-bg: #0A0A0F;
+  --color-aria-surface: #111118;
+  --color-aria-border: #1E1E2E;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  --background: 240 20% 4%;
+  --foreground: 210 40% 98%;
+  --card: 240 15% 7%;
+  --card-foreground: 210 40% 98%;
+  --border: 240 10% 12%;
+  --input: 240 10% 12%;
+  --ring: 152 100% 50%;
+  --primary: 152 100% 50%;
+  --primary-foreground: 240 20% 4%;
+  --secondary: 240 10% 15%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 240 10% 12%;
+  --muted-foreground: 210 20% 60%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 240 20% 4%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --radius: 0.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0A0A0F;
+  color: #F8FAFC;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #111118;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E1E2E;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2E2E4E;
+}
+
+/* Typewriter cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 1s infinite;
+}
+
+/* Waveform bars */
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+.wave-bar {
+  animation: wave 0.8s ease-in-out infinite;
+}
+.wave-bar:nth-child(2) { animation-delay: 0.1s; }
+.wave-bar:nth-child(3) { animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { animation-delay: 0.3s; }
+.wave-bar:nth-child(5) { animation-delay: 0.4s; }
+.wave-bar:nth-child(6) { animation-delay: 0.3s; }
+.wave-bar:nth-child(7) { animation-delay: 0.2s; }
+
+/* Mic pulse */
+@keyframes mic-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); }
+  70% { box-shadow: 0 0 0 20px rgba(0, 255, 136, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+}
+.mic-pulse {
+  animation: mic-pulse 1.5s ease-out infinite;
+}
+
+/* Slide up */
+@keyframes slide-up {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.slide-up {
+  animation: slide-up 0.4s ease-out forwards;
+}
+
+/* Glow */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.glow-pulse {
+  animation: glow-pulse 1.5s ease-in-out infinite;
+}
+
+/* Scan line for terminal feel */
+.terminal-scanline::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 136, 0.01) 2px,
+    rgba(0, 255, 136, 0.01) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Speaking waveform */
+@keyframes speak-wave {
+  0%, 100% { transform: scaleY(0.2); }
+  50% { transform: scaleY(1); }
+}
+.speak-bar {
+  animation: speak-wave 0.6s ease-in-out infinite;
+}
+.speak-bar:nth-child(1) { animation-delay: 0s; animation-duration: 0.7s; }
+.speak-bar:nth-child(2) { animation-delay: 0.1s; animation-duration: 0.5s; }
+.speak-bar:nth-child(3) { animation-delay: 0.2s; animation-duration: 0.8s; }
+.speak-bar:nth-child(4) { animation-delay: 0.15s; animation-duration: 0.6s; }
+.speak-bar:nth-child(5) { animation-delay: 0.05s; animation-duration: 0.9s; }
+
+/* ═══════════════════════════════════════════════════════
+   PURPLE THEME — all color overrides
+   Applied when <html class="purple-theme">
+   ═══════════════════════════════════════════════════════ */
+
+/* --- Page background --- */
+.purple-theme body {
+  background-color: #080010 !important;
+}
+
+/* --- Primary accent: #00FF88 → #A855F7 --- */
+.purple-theme .bg-\[\#00FF88\]          { background-color: #A855F7 !important; }
+.purple-theme .bg-\[\#00FF88\]\/4       { background-color: rgb(168 85 247 / 0.04) !important; }
+.purple-theme .bg-\[\#00FF88\]\/5       { background-color: rgb(168 85 247 / 0.05) !important; }
+.purple-theme .bg-\[\#00FF88\]\/6       { background-color: rgb(168 85 247 / 0.06) !important; }
+.purple-theme .bg-\[\#00FF88\]\/10      { background-color: rgb(168 85 247 / 0.10) !important; }
+.purple-theme .bg-\[\#00FF88\]\/15      { background-color: rgb(168 85 247 / 0.15) !important; }
+.purple-theme .bg-\[\#00FF88\]\/20      { background-color: rgb(168 85 247 / 0.20) !important; }
+.purple-theme .bg-\[\#00FF88\]\/40      { background-color: rgb(168 85 247 / 0.40) !important; }
+.purple-theme .bg-\[\#00FF88\]\/60      { background-color: rgb(168 85 247 / 0.60) !important; }
+
+.purple-theme .text-\[\#00FF88\]        { color: #A855F7 !important; }
+.purple-theme .text-\[\#00FF88\]\/50    { color: rgb(168 85 247 / 0.50) !important; }
+.purple-theme .text-\[\#00FF88\]\/70    { color: rgb(168 85 247 / 0.70) !important; }
+
+.purple-theme .border-\[\#00FF88\]      { border-color: #A855F7 !important; }
+.purple-theme .border-\[\#00FF88\]\/10  { border-color: rgb(168 85 247 / 0.10) !important; }
+.purple-theme .border-\[\#00FF88\]\/15  { border-color: rgb(168 85 247 / 0.15) !important; }
+.purple-theme .border-\[\#00FF88\]\/20  { border-color: rgb(168 85 247 / 0.20) !important; }
+.purple-theme .border-\[\#00FF88\]\/25  { border-color: rgb(168 85 247 / 0.25) !important; }
+.purple-theme .border-\[\#00FF88\]\/30  { border-color: rgb(168 85 247 / 0.30) !important; }
+.purple-theme .border-\[\#00FF88\]\/40  { border-color: rgb(168 85 247 / 0.40) !important; }
+.purple-theme .border-\[\#00FF88\]\/50  { border-color: rgb(168 85 247 / 0.50) !important; }
+
+.purple-theme .from-\[\#00FF88\]        { --tw-gradient-from: #A855F7 !important; }
+.purple-theme .via-\[\#00FF88\]         { --tw-gradient-via: #A855F7 !important; }
+
+.purple-theme .ring-\[\#00FF88\]\/30    { --tw-ring-color: rgb(168 85 247 / 0.30) !important; }
+.purple-theme .shadow-\[\#00FF88\]\/10  { --tw-shadow-color: rgb(168 85 247 / 0.10) !important; }
+
+/* hover states */
+.purple-theme .hover\:bg-\[\#00FF88\]\/5:hover   { background-color: rgb(168 85 247 / 0.05) !important; }
+.purple-theme .hover\:bg-\[\#00FF88\]\/20:hover  { background-color: rgb(168 85 247 / 0.20) !important; }
+.purple-theme .hover\:bg-\[\#00FF88\]\/90:hover  { background-color: rgb(168 85 247 / 0.90) !important; }
+.purple-theme .hover\:border-\[\#00FF88\]\/30:hover { border-color: rgb(168 85 247 / 0.30) !important; }
+.purple-theme .hover\:border-\[\#00FF88\]\/50:hover { border-color: rgb(168 85 247 / 0.50) !important; }
+.purple-theme .hover\:text-\[\#00FF88\]:hover    { color: #A855F7 !important; }
+
+/* --- Secondary accent: #F59E0B → #C084FC --- */
+.purple-theme .bg-\[\#F59E0B\]          { background-color: #7C3AED !important; }
+.purple-theme .bg-\[\#F59E0B\]\/4       { background-color: rgb(192 132 252 / 0.04) !important; }
+.purple-theme .bg-\[\#F59E0B\]\/5       { background-color: rgb(192 132 252 / 0.05) !important; }
+.purple-theme .bg-\[\#F59E0B\]\/10      { background-color: rgb(192 132 252 / 0.10) !important; }
+.purple-theme .bg-\[\#F59E0B\]\/15      { background-color: rgb(192 132 252 / 0.15) !important; }
+.purple-theme .bg-\[\#F59E0B\]\/20      { background-color: rgb(192 132 252 / 0.20) !important; }
+.purple-theme .bg-\[\#F59E0B\]\/60      { background-color: rgb(192 132 252 / 0.60) !important; }
+
+.purple-theme .text-\[\#F59E0B\]        { color: #C084FC !important; }
+.purple-theme .border-\[\#F59E0B\]      { border-color: #C084FC !important; }
+.purple-theme .border-\[\#F59E0B\]\/20  { border-color: rgb(192 132 252 / 0.20) !important; }
+.purple-theme .border-\[\#F59E0B\]\/30  { border-color: rgb(192 132 252 / 0.30) !important; }
+.purple-theme .border-\[\#F59E0B\]\/50  { border-color: rgb(192 132 252 / 0.50) !important; }
+
+.purple-theme .hover\:bg-\[\#F59E0B\]\/5:hover     { background-color: rgb(192 132 252 / 0.05) !important; }
+.purple-theme .hover\:border-\[\#F59E0B\]\/30:hover { border-color: rgb(192 132 252 / 0.30) !important; }
+.purple-theme .hover\:border-\[\#F59E0B\]\/40:hover { border-color: rgb(192 132 252 / 0.40) !important; }
+.purple-theme .hover\:text-\[\#F59E0B\]:hover      { color: #C084FC !important; }
+
+/* --- Backgrounds: dark → dark-purple --- */
+.purple-theme .bg-\[\#0A0A0F\]          { background-color: #080010 !important; }
+.purple-theme .bg-\[\#0A0A0F\]\/80      { background-color: rgb(8 0 16 / 0.80) !important; }
+.purple-theme .bg-\[\#0D0D14\]          { background-color: #0E0018 !important; }
+.purple-theme .bg-\[\#111118\]          { background-color: #120020 !important; }
+.purple-theme .bg-\[\#080810\]          { background-color: #060010 !important; }
+.purple-theme .bg-\[\#1E1E2E\]          { background-color: #1F0038 !important; }
+.purple-theme .bg-\[\#0A0A0F\]\/4       { background-color: rgb(8 0 16 / 0.04) !important; }
+.purple-theme .bg-\[\#0A0A0F\]\/5       { background-color: rgb(8 0 16 / 0.05) !important; }
+
+/* --- Borders: dark → dark-purple --- */
+.purple-theme .border-\[\#1E1E2E\]      { border-color: #1F0038 !important; }
+.purple-theme .border-\[\#2A2A3A\]      { border-color: #2D1050 !important; }
+.purple-theme .border-\[\#374151\]      { border-color: #3D1F6E !important; }
+
+/* --- Text on backgrounds (dark text used on primary colored bg) --- */
+.purple-theme .text-\[\#0A0A0F\]        { color: #080010 !important; }
+.purple-theme .text-\[\#1E1E2E\]        { color: #1F0038 !important; }
+.purple-theme .text-\[\#374151\]        { color: #4B2E7E !important; }
+.purple-theme .text-\[\#4B5563\]        { color: #7C5CBF !important; }
+
+/* --- hover backgrounds on border/surface elements --- */
+.purple-theme .hover\:bg-\[\#1E1E2E\]:hover  { background-color: #1F0038 !important; }
+.purple-theme .hover\:border-\[\#374151\]:hover { border-color: #3D1F6E !important; }
+
+/* --- via gradient on border element --- */
+.purple-theme .via-\[\#1E1E2E\]         { --tw-gradient-via: #1F0038 !important; }
+
+/* --- Scrollbar in purple theme --- */
+.purple-theme ::-webkit-scrollbar-track   { background: #120020; }
+.purple-theme ::-webkit-scrollbar-thumb   { background: #1F0038; }
+.purple-theme ::-webkit-scrollbar-thumb:hover { background: #2D1050; }
+
+/* --- Mic pulse in purple theme --- */
+@keyframes mic-pulse-purple {
+  0%   { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4); }
+  70%  { box-shadow: 0 0 0 20px rgba(168, 85, 247, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
+}
+.purple-theme .mic-pulse {
+  animation: mic-pulse-purple 1.5s ease-out infinite !important;
+}
+
+/* --- Terminal scanline in purple theme --- */
+.purple-theme .terminal-scanline::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(168, 85, 247, 0.01) 2px,
+    rgba(168, 85, 247, 0.01) 4px
+  ) !important;
+}
